@@ -1,0 +1,286 @@
+<script setup lang="ts">
+import { ref, reactive, onMounted } from 'vue';
+import MusicPlayer from './components/MusicPlayer.vue';
+import MusicSong from './components/MusicSong.vue';
+import LibrarySong from './components/LibrarySong.vue';
+import musicHost from './data';
+
+// 🎵 Ссылки и состояния
+const audioRef = ref<HTMLAudioElement | null>(null);
+const isPlaying = ref<boolean>(false);
+const libraryStatus = ref<boolean>(false);
+const currentSong = ref(musicHost()[0]);
+const songs = reactive(musicHost());
+
+const songInfo = reactive({
+  currentTime: 0,
+  duration: 0,
+  animationPercentage: 0
+});
+
+// 📌 Функции управления
+const toggleLibraryStatus = () => (libraryStatus.value = !libraryStatus.value);
+const setLibraryStatus = (status: boolean) => (libraryStatus.value = status);
+const setIsPlaying = (status: boolean) => (isPlaying.value = status);
+
+const setCurrentSong = (song: any) => {
+  currentSong.value = song;
+
+  fetch(song.audio)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Ошибка загрузки аудиофайла: ${response.statusText}`);
+    }
+    console.log("Аудиофайл доступен:", song.audio);
+    audioRef.value!.src = song.audio;
+    audioRef.value!.load();
+    playAudio();
+  })
+  .catch((error) => console.error(error));
+
+  if (audioRef.value) {
+    console.log("Устанавливаем новый источник:", song.audio);
+    audioRef.value.src = song.audio;
+    audioRef.value.load();
+    playAudio(); // <-- Добавляем автоматическое воспроизведение
+  }
+};
+
+const setSongs = (updatedSongs: any[]) => {
+  Object.assign(songs, updatedSongs);
+};
+
+const updateSongInfo = (newInfo: { currentTime: number; duration: number; animationPercentage: number }) => {
+  songInfo.currentTime = newInfo.currentTime;
+  songInfo.duration = newInfo.duration;
+  songInfo.animationPercentage = newInfo.animationPercentage;
+};
+
+// ⏳ Обработчик обновления времени
+const timeUpdateHandler = (e: Event) => {
+  const target = e.target as HTMLAudioElement;
+  const { currentTime, duration } = target;
+
+  if (!duration) return;
+
+  updateSongInfo({
+    currentTime,
+    duration,
+    animationPercentage: Math.round((currentTime / duration) * 100)
+  });
+};
+
+// ▶️ / ⏸️ Управление аудио
+const playAudio = async () => {
+  if (!audioRef.value) {
+    console.error("audioRef не инициализирован!");
+    return;
+  }
+  try {
+    console.log("Попытка воспроизведения:", audioRef.value.src);
+    await audioRef.value.play();
+  } catch (error) {
+    console.error("Ошибка воспроизведения:", error);
+  }
+};
+
+const pauseAudio = () => audioRef.value?.pause();
+
+console.log("Checking URL:", currentSong.value.audio);
+
+// const setAudioSource = (source: string) => {
+//   if (!audioRef.value) return;
+
+//   // Проверяем поддержку MP3
+//   if (!audioRef.value.canPlayType("audio/mpeg")) {
+//     console.error("Браузер не поддерживает MP3.");
+//     return;
+//   }
+
+//   fetch(source)
+//     .then((response) => {
+//       if (!response.ok) throw new Error(`Ошибка загрузки аудиофайла: ${response.statusText}`);
+//       console.log("Файл доступен, устанавливаем источник:", source);
+//       audioRef.value!.src = source;
+//       audioRef.value!.load();
+//     })
+//     .catch(console.error);
+// };
+
+const setAudioSource = (source: string) => {
+  if (!audioRef.value) return;
+
+  const fixedSource = `/assets/${source.split('/').pop()}`; // Исправляем путь
+  console.log("Используемый путь:", fixedSource);
+
+  fetch(fixedSource)
+    .then((response) => {
+      if (!response.ok) throw new Error(`Ошибка загрузки аудиофайла: ${response.statusText}`);
+      audioRef.value!.src = fixedSource;
+      audioRef.value!.load();
+    })
+    .catch(console.error);
+};
+
+const updateAudioCurrentTime = (time: number) => {
+  if (audioRef.value) {
+    audioRef.value.currentTime = time;
+  }
+};
+
+// 🔄 Устанавливаем начальный трек при загрузке
+onMounted(() => {
+  if (audioRef.value) {
+    console.log("Инициализация аудиофайла:", currentSong.value.audio);
+    audioRef.value.src = currentSong.value.audio;
+  } else {
+    console.error("audioRef не найден");
+  }
+});
+</script>
+
+<template>
+  <div class="app">
+    <nav class="navbar">
+      <h1 class="navbar__title">Electronic Music Player</h1>
+      <button class="btn btn--library" @click="toggleLibraryStatus">
+        <h4>Library</h4>
+      </button>
+    </nav>
+
+    <div class="content">
+      <div class="main-content">
+        <MusicSong :current-song="currentSong" />
+        <MusicPlayer
+          :id="currentSong.id"
+          :songs="songs"
+          :song-info="songInfo"
+          @update-song-info="updateSongInfo"
+          :audio-ref="audioRef"
+          :is-playing="isPlaying"
+          @set-is-playing="setIsPlaying"
+          :current-song="currentSong"
+          @set-current-song="setCurrentSong"
+          @set-songs="setSongs"
+          @pauseAudio="pauseAudio"
+          @playAudio="playAudio"
+          @setAudioSource="setAudioSource"
+          @updateAudioCurrentTime="updateAudioCurrentTime"
+        />
+      </div>
+
+      <div class="library" :class="{ 'library--active': libraryStatus }">
+        <h2 class="library__heading">Library</h2>
+        <div class="library__songs">
+          <LibrarySong
+            v-for="song in songs"
+            :key="song.id"
+            :song="song"
+            :library-status="libraryStatus"
+            :is-playing="isPlaying"
+            :set-songs="setSongs"
+            :audio-ref="audioRef"
+            :songs="songs"
+            :set-current-song="setCurrentSong"
+            @pauseAudio="pauseAudio"
+            @playAudio="playAudio"
+            @setAudioSource="setAudioSource"
+          />
+        </div>
+      </div>
+    </div>
+
+    <audio ref="audioRef" @timeupdate="timeUpdateHandler" @loadedmetadata="timeUpdateHandler" />
+  </div>
+</template>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  background-color: #2ab3bf;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  position: relative;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.btn {
+  background-color: #205950;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #18463e;
+}
+
+.library {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.library--active {
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .library {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+}
+</style>
