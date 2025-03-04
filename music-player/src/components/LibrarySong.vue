@@ -15,52 +15,31 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    name: 'LibrarySong',
-    props: {
-      song: {
-        type: Object,
-        required: true,
-      },
-      libraryStatus: {
-        type: Boolean,
-        required: true,
-      },
-      setLibraryStatus: {
-        type: Function,
-        required: true,
-      },
-      setSongs: {
-        type: Function,
-        required: true,
-      },
-      isPlaying: {
-        type: Boolean,
-        required: true,
-      },
-      setCurrentSong: {
-        type: Function,
-        required: true,
-      },
-      id: {
-        type: String,
-        required: true,
-      },
-    },
-    methods: {
-      async selectSong() {
-        await this.setCurrentSong(this.song);
-        if (this.isPlaying) {
-          this.$emit('pauseAudio');
-          this.$emit('setAudioSource', this.song.audio);
-          this.$emit('playAudio');
-        }
-        this.setLibraryStatus(false);
-      },
-    },
-  };
-  </script>
+<script setup>
+import { defineProps, defineEmits } from "vue";
+
+const props = defineProps({
+  song: Object,
+  libraryStatus: Boolean,
+  setLibraryStatus: Function,
+  setSongs: Function,
+  isPlaying: Boolean,
+  setCurrentSong: Function,
+  id: String,
+});
+
+const emit = defineEmits(["pauseAudio", "setAudioSource", "playAudio"]);
+
+const selectSong = async () => {
+  await props.setCurrentSong(props.song);
+  if (props.isPlaying) {
+    emit("pauseAudio");
+    emit("setAudioSource", props.song.audio);
+    emit("playAudio");
+  }
+  props.setLibraryStatus(false);
+};
+</script>
   
   
   
