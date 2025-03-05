@@ -1,4 +1,4 @@
-export default function musicHost() {
+export default function musicData() {
   return [
     {
       name: 'Otherside',

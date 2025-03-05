@@ -6,9 +6,12 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "color-picker": "^0.0.1",
     "core-js": "^3.8.3",
+    "pinia": "^3.0.1",
     "uuid": "^9.0.1",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-color": "^2.8.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

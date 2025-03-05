@@ -1,0 +1,77 @@
+.music-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 500px;
+  }
+  
+  .time-control {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  .time-control__current,
+  .time-control__total {
+    font-size: 1rem;
+  }
+  
+  .track {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .track__bar {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .track__input {
+    width: 100%;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: -6px;
+  }
+  
+  .track__animate {
+    height: 8px;
+    background: #fff;
+    transition: width 0.1s ease-in-out;
+  }
+  
+  .play-controlbutton {
+    border: 3px solid black; /* Чёрный бортик */
+    border-radius: 50%; /* Делаем кнопку круглой */
+    padding: 12px; /* Увеличиваем область вокруг иконки */
+    background-color: white; /* Белый фон для контраста */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Одинаковый размер кнопок */
+    height: 50px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+  
+  .play-controlbutton:hover {
+    background-color: lightgray; /* Подсветка при наведении */
+    transform: scale(1.1); /* Лёгкое увеличение */
+  }
+  
+  .play-control {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Равномерные отступы между кнопками */
+  }
+  
+  .play-controlbutton--skip-back,
+  .play-controlbutton--skip-forward {
+    opacity: 0.8;
+  }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
-import MusicPlayer from './components/MusicPlayer.vue';
-import MusicSong from './components/MusicSong.vue';
-import LibrarySong from './components/LibrarySong.vue';
+import MusicPlayer from './components/MusicPlayer/MusicPlayer.vue';
+import MusicSong from './components/MusicSong/MusicSong.vue';
+import LibrarySong from './components/LibrarySong/LibrarySong.vue';
 import musicHost from './data';
 
 // 🎵 Ссылки и состояния
@@ -87,25 +87,6 @@ const playAudio = async () => {
 const pauseAudio = () => audioRef.value?.pause();
 
 console.log("Checking URL:", currentSong.value.audio);
-
-// const setAudioSource = (source: string) => {
-//   if (!audioRef.value) return;
-
-//   // Проверяем поддержку MP3
-//   if (!audioRef.value.canPlayType("audio/mpeg")) {
-//     console.error("Браузер не поддерживает MP3.");
-//     return;
-//   }
-
-//   fetch(source)
-//     .then((response) => {
-//       if (!response.ok) throw new Error(`Ошибка загрузки аудиофайла: ${response.statusText}`);
-//       console.log("Файл доступен, устанавливаем источник:", source);
-//       audioRef.value!.src = source;
-//       audioRef.value!.load();
-//     })
-//     .catch(console.error);
-// };
 
 const setAudioSource = (source: string) => {
   if (!audioRef.value) return;
@@ -197,90 +178,6 @@ onMounted(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import './styles/main.css'
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f1f1f1;
-  color: #333;
-}
-
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.navbar {
-  background-color: #2ab3bf;
-  color: #fff;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar__title {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.content {
-  flex-grow: 1;
-  display: flex;
-  position: relative;
-}
-
-.main-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-}
-
-.btn {
-  background-color: #205950;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #18463e;
-}
-
-.library {
-  height: 100%;
-  overflow-y: auto;
-}
-
-.library--active {
-  display: block;
-}
-
-@media only screen and (max-width: 768px) {
-  .content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .main-content {
-    padding: 1rem;
-  }
-
-  .library {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 1rem;
-  }
-}
 </style>

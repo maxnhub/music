@@ -1,0 +1,84 @@
+.library-song {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.library-song:hover {
+  background-color: #f1f1f1;
+}
+
+
+
+.library-song__cover {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+}
+
+.library-song__info {
+  flex-grow: 1;
+}
+
+.library-song__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.library-song__artist {
+  font-size: 1rem;
+  color: #666;
+}
+
+.library-song__playing {
+  font-size: 1rem;
+  color: #2ab3bf;
+  font-weight: 600;
+}
+
+/* Стили для модального окна */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background: red;
+  color: white;
+}
+
+.btn-cancel {
+  background: gray;
+  color: white;
+}

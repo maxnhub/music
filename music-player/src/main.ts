@@ -1,11 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlay, faAngleLeft, faAngleRight, faPause } from '@fortawesome/free-solid-svg-icons';
-
-// Добавляем иконки в библиотеку
-library.add(faPlay, faAngleLeft, faAngleRight, faPause);
+import { createPinia } from 'pinia';
 
 // Создаем Vue-приложение
 const app = createApp(App);
@@ -13,7 +9,7 @@ const app = createApp(App);
 // Глобально регистрируем компонент FontAwesome
 app.component('FontAwesomeIcon', FontAwesomeIcon);
 
+app.use(createPinia());
+
 // Монтируем приложение в элемент с id="app"
 app.mount('#app');
-
-export { library };
