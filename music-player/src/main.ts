@@ -13,3 +13,4 @@ app.use(createPinia());
 
 // Монтируем приложение в элемент с id="app"
 app.mount('#app');
+

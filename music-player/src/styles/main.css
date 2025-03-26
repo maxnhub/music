@@ -110,6 +110,125 @@
     margin-right: 10px;
     padding: 8px 15px;
   }
+
+  .app {
+    font-family: "Arial", sans-serif;
+    background: #121212;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    background: #181818;
+    border-radius: 10px;
+  }
+  
+  .navbar__title {
+    font-size: 20px;
+  }
+  
+  .btn {
+    padding: 8px 15px;
+    background: #1db954;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    background: #1aa34a;
+    transform: scale(1.05);
+  }
+  
+  .content {
+    width: 100%;
+  }
+  
+  .library {
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+  }
+  
+  .library--active {
+    display: block;
+  }
+
+  .library {
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow-y: auto;
+  }
+  
+  .library__heading {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+  }
+  
+  .btn-control {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-control--add-button {
+    background: #1db954;
+    color: #282828;
+  }
+  
+  .btn-control--add-button:hover {
+    background: #17a144;
+    color: white;
+    box-shadow: inset 0 0 0 3px #148a3a;
+  }
+  
+  .btn-control--add-button:active {
+    background: #148a3a;
+  }
+  
+  .btn-control--delete-button {
+    background: #e63946;
+    color: #282828;
+  }
+  
+  .btn-control--delete-button:hover {
+    background: #c52d3b;
+    color: white;
+    box-shadow: inset 0 0 0 3px #a5242f;
+  }
+  
+  .btn-control--delete-button:active {
+    background: #a5242f;
+  }
   
   @media only screen and (max-width: 768px) {
     .content {

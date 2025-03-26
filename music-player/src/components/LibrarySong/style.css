@@ -1,22 +1,30 @@
 .library-song {
   display: flex;
   align-items: center;
-  padding: 1rem 2rem;
+  background: #333;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.library-song img {
+  max-height: 250px;
+  max-width: 250px;
+  margin-right: 50px;
 }
 
 .library-song:hover {
-  background-color: #f1f1f1;
+  background: #444;
+  transform: scale(1.02);
 }
 
-
-
 .library-song__cover {
-  width: 4rem;
-  height: 4rem;
-  border-radius: 0.5rem;
-  margin-right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .library-song__info {
@@ -24,61 +32,17 @@
 }
 
 .library-song__title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 14px;
+  color: white;
+  margin: 0;
 }
 
 .library-song__artist {
-  font-size: 1rem;
-  color: #666;
+  font-size: 12px;
+  color: #b3b3b3;
+  margin: 0;
 }
 
-.library-song__playing {
-  font-size: 1rem;
-  color: #2ab3bf;
-  font-weight: 600;
-}
-
-/* Стили для модального окна */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.btn {
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-delete {
-  background: red;
-  color: white;
-}
-
-.btn-cancel {
-  background: gray;
-  color: white;
+.library-song--active {
+  background: #1db954;
 }
