@@ -9,6 +9,9 @@ export default function musicData() {
       color: ['#1B3A4B', '#6DD3CE'],
       id: '0',
       active: true,
+      bpm: '122',
+      key: 'Gm',
+      genre: 'House'
     },
     {
       name: 'Beyond Beliefs',
@@ -19,6 +22,9 @@ export default function musicData() {
       color: ['#F4A261', '#264653'],
       id: '1',
       active: false,
+      bpm: '122',
+      key: 'Gm',
+      genre: 'House'
     },
     {
       name: 'The Space In Between',
@@ -29,6 +35,9 @@ export default function musicData() {
       color: ['#B5838D', '#6D6875'],
       id: '2',
       active: false,
+      bpm: '122',
+      key: 'Gm',
+      genre: 'House'
     },
     {
       name: 'Return to Oz (ARTBAT Remix)',
@@ -39,6 +48,9 @@ export default function musicData() {
       color: ['#E63946', '#1D3557'],
       id: '3',
       active: false,
+      bpm: '122',
+      key: 'Gm',
+      genre: 'House'
     },
     {
       name: 'Wall of Strings',
@@ -49,6 +61,9 @@ export default function musicData() {
       color: ['#8D99AE', '#EDF2F4'],
       id: '4',
       active: false,
+      bpm: '122',
+      key: 'Gm',
+      genre: 'House'
     },
     {
       name: 'Dancing People Are Never Wrong',
@@ -59,6 +74,9 @@ export default function musicData() {
       color: ['#457B9D', '#A8DADC'],
       id: '5',
       active: false,
+      bpm: '122',
+      key: 'Gm',
+      genre: 'House'
     },
   ];
 }

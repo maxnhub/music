@@ -12,7 +12,7 @@
 .library-song img {
   max-height: 250px;
   max-width: 250px;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .library-song:hover {
@@ -20,27 +20,22 @@
   transform: scale(1.02);
 }
 
-.library-song__cover {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
 .library-song__info {
   flex-grow: 1;
 }
 
-.library-song__title {
-  font-size: 14px;
+.library-song__details {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  text-align: left;
   color: white;
-  margin: 0;
+  margin-top: 5px;
 }
 
-.library-song__artist {
-  font-size: 12px;
+.library-song__detail {
+  font-size: 14px;
   color: #b3b3b3;
-  margin: 0;
 }
 
 .library-song--active {

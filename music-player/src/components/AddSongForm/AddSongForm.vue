@@ -15,6 +15,15 @@
                 <label>Путь к файлу:</label>
                 <input v-model="song.audio" required />
 
+                <label>BPM:</label>
+                <input v-model="song.bpm" required type="number" />
+
+                <label>Key:</label>
+                <input v-model="song.key" required />
+
+                <label>Genre:</label>
+                <input v-model="song.genre" required />
+
                 <div class="modal-buttons">
                     <button class="confirm-button" type="submit">Добавить</button>
                     <button class="cancel-button" type="button" @click="closeForm">Отмена</button>
@@ -36,7 +45,10 @@ const song = ref({
     artist: "",
     cover: "",
     audio: "",
-    color: [`#${Math.floor(Math.random() * 16777215).toString(16)}, #${Math.floor(Math.random() * 16777215).toString(16)}`],
+    bpm: "",
+    key: "",
+    genre: "",
+    color: ["#" + Math.floor(Math.random() * 16777215).toString(16), "#" + Math.floor(Math.random() * 16777215).toString(16)],
     active: false
 });
 

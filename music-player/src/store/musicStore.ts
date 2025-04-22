@@ -7,6 +7,9 @@ interface Song {
   artist: string;
   cover: string;
   audio: string;
+  bpm: string;
+  key: string;
+  genre: string;
   active: boolean;
   color: string[];
 }
